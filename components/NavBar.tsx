@@ -14,6 +14,8 @@ const NavBar = () => {
   const pathname = usePathname();
   const router = useRouter();
 
+  if (pathname === '/') return null;
+
   return (
     <div className="w-full px-7 fixed bottom-0 h-12 flex bg-[#121212] justify-between items-end pb-[0.3rem]">
       <NavBarButton
