@@ -19,9 +19,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {pathname !== '/' ? <NavBar /> : null}
-
         {children}
+        {pathname !== '/' ? <NavBar /> : null}
       </body>
     </html>
   );
