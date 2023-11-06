@@ -15,7 +15,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const pathname = headers().get('next-pathname') as string;
-
   return (
     <html lang="en">
       <body>
