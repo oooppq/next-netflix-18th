@@ -3,7 +3,8 @@
 import ContentElement from '@/components/browse/ContentElement';
 import { LeftIcon, RightIcon } from '@/public/images';
 import { TContent } from '@/types';
-import { useState } from 'react';
+import Image from 'next/image';
+import { useRef, useState, MouseEvent } from 'react';
 
 interface ContentsSliderProps {
   title: string;
@@ -11,7 +12,25 @@ interface ContentsSliderProps {
 }
 
 const ContentsSlider = ({ title, contents }: ContentsSliderProps) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isMouseOnSlider, setIsMouseOnSlider] = useState<Boolean>(false);
+
+  const handleClickMoveButton = (direction: 'prev' | 'next') => {
+    if (!containerRef.current) return;
+    if (direction === 'prev') {
+      containerRef.current.scrollTo({
+        left:
+          containerRef.current.scrollLeft - containerRef.current.offsetWidth,
+        behavior: 'smooth',
+      });
+    } else {
+      containerRef.current.scrollTo({
+        left:
+          containerRef.current.scrollLeft + containerRef.current.offsetWidth,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   return (
     <div className="">
@@ -23,15 +42,24 @@ const ContentsSlider = ({ title, contents }: ContentsSliderProps) => {
       >
         {isMouseOnSlider ? (
           <>
-            <button className="absolute left-0 h-full">
+            <button
+              className="absolute left-0 h-full"
+              onClick={() => handleClickMoveButton('prev')}
+            >
               <LeftIcon />
             </button>
-            <button className="absolute right-0 h-full">
+            <button
+              className="absolute right-0 h-full"
+              onClick={() => handleClickMoveButton('next')}
+            >
               <RightIcon />
             </button>
           </>
         ) : null}
-        <div className="flex mt-2 mb-5 overflow-auto scroll-smooth scroll scroll-hide">
+        <div
+          className="flex mt-2 mb-5 overflow-auto scroll-smooth scroll scroll-hide"
+          ref={containerRef}
+        >
           {contents.map((content, idx) => (
             <ContentElement
               key={`${content.id}${content.title}`}
