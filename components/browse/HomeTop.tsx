@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 interface HomeTopProps {
   posterPath: string;
-  rank?: number;
+  rank: number | null;
   category: string;
 }
 
