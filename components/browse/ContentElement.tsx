@@ -4,10 +4,10 @@ import Link from 'next/link';
 
 interface ContentElementProps {
   content: TContent;
-  lastFlag: boolean;
+  sequence: 'head' | 'tail' | 'mid';
 }
 
-const ContentElement = ({ content, lastFlag }: ContentElementProps) => {
+const ContentElement = ({ content, sequence }: ContentElementProps) => {
   const width = 103;
   const height = 161;
   const url = `https://image.tmdb.org/t/p/w154`;
@@ -15,7 +15,9 @@ const ContentElement = ({ content, lastFlag }: ContentElementProps) => {
   return (
     <Link
       href={`?id=${content.id}`}
-      className={`w-[103px] h-[161px] flex ${lastFlag ? 'mr-3' : 'mr-2'}`}
+      className={`w-[103px] h-[161px] flex ${
+        sequence === 'head' ? 'ml-3' : ''
+      } ${sequence === 'tail' ? 'mr-3' : 'mr-2'}`}
     >
       <Image
         src={url + content.poster_path}

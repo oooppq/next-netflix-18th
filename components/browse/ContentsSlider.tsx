@@ -8,14 +8,16 @@ interface ContentsSliderProps {
 
 const ContentsSlider = ({ title, contents }: ContentsSliderProps) => {
   return (
-    <div className="ml-3">
-      <h3 className="text-[20.921px] font-bold mx-1 text-white">{title}</h3>
-      <div className="flex mt-2 mb-5 overflow-auto scroll-smooth scroll">
+    <div className="">
+      <h3 className="text-[20.921px] font-bold ml-4 text-white">{title}</h3>
+      <div className="flex mt-2 mb-5 overflow-auto scroll-smooth scroll scroll-hide">
         {contents.map((content, idx) => (
           <ContentElement
             key={`${content.id}${content.title}`}
             content={content}
-            lastFlag={idx === contents.length - 1}
+            sequence={
+              idx === 0 ? 'head' : idx === contents.length - 1 ? 'tail' : 'mid'
+            }
           />
         ))}
       </div>
