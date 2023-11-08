@@ -1,5 +1,6 @@
 import ContentsSlider from '@/components/browse/ContentsSlider';
 import HomeNavBar from '@/components/browse/HomeNavBar';
+import HomeTop from '@/components/browse/HomeTop';
 import { TContent } from '@/types';
 import React from 'react';
 
@@ -40,6 +41,11 @@ const Browse = () => {
   return (
     <div className="bg-black w-full h-full">
       <HomeNavBar />
+      <HomeTop
+        posterPath="/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
+        rank={1}
+        category="Nigeria Today"
+      />
       <ContentsSlider title="Top 10 in Nigeria Today" contents={CONTENTS} />
     </div>
   );

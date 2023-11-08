@@ -6,3 +6,6 @@ export { default as SearchIcon } from './search-icon.svg';
 export { default as NetflixIcon } from './netflix-mini-logo.svg';
 export { default as LeftIcon } from './left-arrow-icon.svg';
 export { default as RightIcon } from './right-arrow-icon.svg';
+export { default as PlusIcon } from './plus-icon.svg';
+export { default as PlayIcon } from './play-icon.svg';
+export { default as InfoIcon } from './info-icon.svg';
