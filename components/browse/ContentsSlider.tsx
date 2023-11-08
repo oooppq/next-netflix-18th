@@ -1,8 +1,9 @@
 'use client';
 
 import ContentElement from '@/components/browse/ContentElement';
+import { LeftIcon, RightIcon } from '@/public/images';
 import { TContent } from '@/types';
-import { useRef, useState, MouseEvent } from 'react';
+import { useState } from 'react';
 
 interface ContentsSliderProps {
   title: string;
@@ -10,51 +11,41 @@ interface ContentsSliderProps {
 }
 
 const ContentsSlider = ({ title, contents }: ContentsSliderProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [dragging, setDragging] = useState<boolean>(false);
-  const [clickPoint, setClickPoint] = useState<number>(0);
-  const [scrollLeft, setScrollLeft] = useState<number>(0);
-
-  const handleMouseDownEvent = (e: MouseEvent<HTMLDivElement>) => {
-    setDragging(true);
-    if (containerRef.current) {
-      setClickPoint(e.pageX);
-      setScrollLeft(containerRef.current.scrollLeft);
-    }
-  };
-
-  const handleMouseMoveEvent = (e: MouseEvent<HTMLDivElement>) => {
-    if (!dragging) return;
-
-    e.preventDefault();
-
-    if (containerRef.current) {
-      const walk = e.pageX - clickPoint;
-
-      containerRef.current.scrollLeft = scrollLeft - walk;
-    }
-  };
+  const [isMouseOnSlider, setIsMouseOnSlider] = useState<Boolean>(false);
 
   return (
     <div className="">
       <h3 className="text-[20.921px] font-bold ml-4 text-white">{title}</h3>
       <div
-        className="flex mt-2 mb-5 overflow-auto scroll-smooth scroll scroll-hide"
-        ref={containerRef}
-        onMouseDown={handleMouseDownEvent}
-        onMouseLeave={() => setDragging(false)}
-        onMouseUp={() => setDragging(false)}
-        onMouseMove={handleMouseMoveEvent}
+        className="relative"
+        onMouseOver={() => setIsMouseOnSlider(true)}
+        onMouseLeave={() => setIsMouseOnSlider(false)}
       >
-        {contents.map((content, idx) => (
-          <ContentElement
-            key={`${content.id}${content.title}`}
-            content={content}
-            sequence={
-              idx === 0 ? 'head' : idx === contents.length - 1 ? 'tail' : 'mid'
-            }
-          />
-        ))}
+        {isMouseOnSlider ? (
+          <>
+            <button className="absolute left-0 h-full">
+              <LeftIcon />
+            </button>
+            <button className="absolute right-0 h-full">
+              <RightIcon />
+            </button>
+          </>
+        ) : null}
+        <div className="flex mt-2 mb-5 overflow-auto scroll-smooth scroll scroll-hide">
+          {contents.map((content, idx) => (
+            <ContentElement
+              key={`${content.id}${content.title}`}
+              content={content}
+              sequence={
+                idx === 0
+                  ? 'head'
+                  : idx === contents.length - 1
+                  ? 'tail'
+                  : 'mid'
+              }
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
