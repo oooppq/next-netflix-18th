@@ -8,9 +8,14 @@ import { useRef, useState } from 'react';
 interface ContentsSliderProps {
   title: string;
   contents: TContent[];
+  isRanking: boolean;
 }
 
-const ContentsSlider = ({ title, contents }: ContentsSliderProps) => {
+const ContentsSlider = ({
+  title,
+  isRanking,
+  contents,
+}: ContentsSliderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMouseOnSlider, setIsMouseOnSlider] = useState<Boolean>(false);
 
@@ -33,7 +38,9 @@ const ContentsSlider = ({ title, contents }: ContentsSliderProps) => {
 
   return (
     <div className="">
-      <h3 className="text-[20.921px] font-bold ml-4 text-white">{title}</h3>
+      <h3 className="text-[20.921px] font-bold ml-4 text-white">
+        {isRanking ? 'Top 10 in ' + title : title}
+      </h3>
       <div
         className="relative"
         onMouseOver={() => setIsMouseOnSlider(true)}
@@ -62,6 +69,8 @@ const ContentsSlider = ({ title, contents }: ContentsSliderProps) => {
           {contents.map((content, idx) => (
             <ContentElement
               key={`${content.id}${content.title}`}
+              category={title}
+              rank={isRanking ? idx + 1 : undefined}
               content={content}
               sequence={
                 idx === 0

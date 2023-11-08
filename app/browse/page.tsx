@@ -1,7 +1,12 @@
 import ContentsSlider from '@/components/browse/ContentsSlider';
 import HomeNavBar from '@/components/browse/HomeNavBar';
+import HomeTop from '@/components/browse/HomeTop';
 import { TContent } from '@/types';
 import React from 'react';
+
+interface BrowseProps {
+  searchParams: { [key: string]: string | undefined };
+}
 
 const CONTENTS: TContent[] = [
   {
@@ -36,11 +41,31 @@ const CONTENTS: TContent[] = [
   },
 ];
 
-const Browse = () => {
+const Browse = ({ searchParams }: BrowseProps) => {
+  const defualtData = {
+    rank: 1,
+    category: 'Nigeria Today',
+    posterPath: '/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
+  };
   return (
-    <div className="bg-black w-full h-full">
+    <div className="bg-black w-full h-full relative">
       <HomeNavBar />
-      <ContentsSlider title="Top 10 in Nigeria Today" contents={CONTENTS} />
+      <HomeTop
+        posterPath={searchParams.posterPath || defualtData.posterPath}
+        rank={
+          searchParams.rank
+            ? Number(searchParams.rank)
+            : searchParams.posterPath
+            ? null
+            : defualtData.rank
+        }
+        category={searchParams.category || defualtData.category}
+      />
+      <ContentsSlider
+        title="Nigeria Today"
+        isRanking={true}
+        contents={CONTENTS}
+      />
     </div>
   );
 };
