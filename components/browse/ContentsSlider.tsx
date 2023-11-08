@@ -14,7 +14,6 @@ const ContentsSlider = ({ title, contents }: ContentsSliderProps) => {
         <ContentElement
           key={`${content.id}${content.title}`}
           content={content}
-          handleClickContent={() => {}}
         />
       ))}
     </div>

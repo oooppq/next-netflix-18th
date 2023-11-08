@@ -1,19 +1,16 @@
 import { TContent } from '@/types';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface ContentElementProps {
   content: TContent;
-  handleClickContent?: () => void;
 }
 
-const ContentElement = ({
-  content,
-  handleClickContent,
-}: ContentElementProps) => {
+const ContentElement = ({ content }: ContentElementProps) => {
   return (
-    <div className="">
+    <Link href="" className="">
       <Image src={content.poster_path} alt={content.title} className="" />
-    </div>
+    </Link>
   );
 };
 
