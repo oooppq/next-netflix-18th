@@ -38,7 +38,7 @@ const CONTENTS: TContent[] = [
 
 const Browse = () => {
   return (
-    <div className="bg-black">
+    <div className="bg-black w-full h-full">
       <HomeNavBar />
       <ContentsSlider title="Top 10 in Nigeria Today" contents={CONTENTS} />
     </div>
