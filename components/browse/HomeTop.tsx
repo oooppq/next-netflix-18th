@@ -1,42 +1,47 @@
-import { InfoIcon, PlayIcon, PlusIcon } from '@/public/images';
-import Image, { ImageProps } from 'next/image';
+import { InfoIcon, PlayIcon, PlusIcon, TopTenIcon } from '@/public/images';
+import Image from 'next/image';
 
-interface HomeTopProps extends ImageProps {
+interface HomeTopProps {
   posterPath: string;
-  rank: number;
+  rank?: number;
   category: string;
 }
 
-const HomeTop = ({
-  posterPath,
-  rank,
-  category,
-  ...imageProps
-}: HomeTopProps) => {
-  const url = `https://image.tmdb.org/t/p/w500`;
+const HomeTop = ({ posterPath, rank, category }: HomeTopProps) => {
+  const url = `https://image.tmdb.org/t/p/original`;
 
   return (
-    <div className="">
-      <Image
-        {...imageProps}
-        src={url + posterPath}
-        fill
-        alt="top poster"
-        className="w-full"
-      />
-      <div className="">{`#${rank} in ${category}`}</div>
-      <div className="">
-        <button className="">
+    <div className="flex flex-col items-center w-full mb-[43px]">
+      <div className="w-full h-[415px] overflow-hidden sm:h-[700px] md:h-[1000px] relative ">
+        <Image
+          src={url + posterPath}
+          width={800}
+          height={1200}
+          alt="top poster"
+          className="absolute object-cover w-full"
+        />
+      </div>
+      <div className="text-white flex items-center">
+        {rank ? (
+          <>
+            <TopTenIcon />
+            <span className="mx-[5px]">{`#${rank} in`}</span>
+          </>
+        ) : null}
+        {category}
+      </div>
+      <div className="w-full flex justify-between px-[54px] mt-[11px]">
+        <button className="text-white flex flex-col items-center">
           <PlusIcon />
-          <span className="">My List</span>
+          <span className="text-[14px]">My List</span>
         </button>
-        <button className="">
+        <button className=" bg-[#C4C4C4] w-[110.625px] h-[45px] flex justify-center items-center rounded-[5.63px] text-black">
           <PlayIcon />
-          <span className="">Play</span>
+          <span className="ml-[15px] text-[20px] font-semibold">Play</span>
         </button>
-        <button className="">
+        <button className="text-white flex flex-col items-center">
           <InfoIcon />
-          <span className="">Info</span>
+          <span className="text-[14px]">Info</span>
         </button>
       </div>
     </div>

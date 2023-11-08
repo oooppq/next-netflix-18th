@@ -39,7 +39,7 @@ const CONTENTS: TContent[] = [
 
 const Browse = () => {
   return (
-    <div className="bg-black w-full h-full">
+    <div className="bg-black w-full h-full relative">
       <HomeNavBar />
       <HomeTop
         posterPath="/1E5baAaEse26fej7uHcjOgEE2t2.jpg"
