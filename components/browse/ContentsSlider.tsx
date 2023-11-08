@@ -3,8 +3,7 @@
 import ContentElement from '@/components/browse/ContentElement';
 import { LeftIcon, RightIcon } from '@/public/images';
 import { TContent } from '@/types';
-import Image from 'next/image';
-import { useRef, useState, MouseEvent } from 'react';
+import { useRef, useState } from 'react';
 
 interface ContentsSliderProps {
   title: string;
