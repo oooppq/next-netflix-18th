@@ -1,71 +1,43 @@
+import React from 'react';
 import ContentsSlider from '@/components/browse/ContentsSlider';
 import HomeNavBar from '@/components/browse/HomeNavBar';
 import HomeTop from '@/components/browse/HomeTop';
 import { TContent } from '@/types';
-import React from 'react';
+import { getMovies } from '@/utils/Api';
+
+async function setMovies() {
+  const movies = await getMovies('popular');
+  return movies;
+}
 
 interface BrowseProps {
   searchParams: { [key: string]: string | undefined };
 }
 
-const CONTENTS: TContent[] = [
-  {
-    id: 1,
-    title: 'some',
-    poster_path: '/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
-  },
-  {
-    id: 2,
-    title: 'some',
-    poster_path: '/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
-  },
-  {
-    id: 3,
-    title: 'some',
-    poster_path: '/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
-  },
-  {
-    id: 4,
-    title: 'some',
-    poster_path: '/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
-  },
-  {
-    id: 5,
-    title: 'some',
-    poster_path: '/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
-  },
-  {
-    id: 6,
-    title: 'some',
-    poster_path: '/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
-  },
-];
-
-const Browse = ({ searchParams }: BrowseProps) => {
-  const defualtData = {
+const Browse = async ({ searchParams }: BrowseProps) => {
+  const Data = await setMovies();
+  console.log(Data);
+  const defaultData = {
     rank: 1,
     category: 'Nigeria Today',
     posterPath: '/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
   };
+
   return (
-    <div className="bg-black w-full h-full relative">
+    <div className='bg-black w-full h-full relative'>
       <HomeNavBar />
       <HomeTop
-        posterPath={searchParams.posterPath || defualtData.posterPath}
+        posterPath={searchParams.posterPath || defaultData.posterPath}
         rank={
           searchParams.rank
             ? Number(searchParams.rank)
             : searchParams.posterPath
             ? null
-            : defualtData.rank
+            : defaultData.rank
         }
-        category={searchParams.category || defualtData.category}
+        category={searchParams.category || defaultData.category}
       />
-      <ContentsSlider
-        title="Nigeria Today"
-        isRanking={true}
-        contents={CONTENTS}
-      />
+      <ContentsSlider title='Nigeria Today' isRanking={true} contents={Data} />
     </div>
   );
 };
