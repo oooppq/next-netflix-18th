@@ -5,8 +5,8 @@ import HomeTop from '@/components/browse/HomeTop';
 import { TContent } from '@/types';
 import { getMovies } from '@/utils/Api';
 
-async function setMovies() {
-  const movies = await getMovies('popular');
+async function setMovies(type: string) {
+  const movies = await getMovies(type);
   return movies;
 }
 
@@ -15,8 +15,11 @@ interface BrowseProps {
 }
 
 const Browse = async ({ searchParams }: BrowseProps) => {
-  const Data = await setMovies();
-  console.log(Data);
+  const Top = await setMovies('top_rated');
+  const Popular = await setMovies('popular');
+  const Upcoming = await setMovies('upcoming');
+  const Nowplaying = await setMovies('now_playing');
+
   const defaultData = {
     rank: 1,
     category: 'Nigeria Today',
@@ -37,7 +40,27 @@ const Browse = async ({ searchParams }: BrowseProps) => {
         }
         category={searchParams.category || defaultData.category}
       />
-      <ContentsSlider title='Nigeria Today' isRanking={true} contents={Data} />
+      <ContentsSlider
+        title='Preview'
+        isRanking={false}
+        isPreview={true}
+        contents={Nowplaying}
+      />
+      <ContentsSlider
+        title='Nigeria Today'
+        isRanking={true}
+        contents={Top}
+      />
+      <ContentsSlider
+        title='Popular'
+        isRanking={false}
+        contents={Popular}
+      />
+      <ContentsSlider
+        title='Upcomming'
+        isRanking={false}
+        contents={Upcoming}
+      />
     </div>
   );
 };
