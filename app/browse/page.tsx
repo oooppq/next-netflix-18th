@@ -5,24 +5,19 @@ import HomeTop from '@/components/browse/HomeTop';
 import { TContent } from '@/types';
 import { getMovies } from '@/utils/Api';
 
-async function setMovies(type: string) {
-  const movies = await getMovies(type);
-  return movies;
-}
-
 interface BrowseProps {
   searchParams: { [key: string]: string | undefined };
 }
 
 const Browse = async ({ searchParams }: BrowseProps) => {
-  const Top = await setMovies('top_rated');
-  const Popular = await setMovies('popular');
-  const Upcoming = await setMovies('upcoming');
-  const Nowplaying = await setMovies('now_playing');
+  const Top = await getMovies('top_rated');
+  const Popular = await getMovies('popular');
+  const Upcoming = await getMovies('upcoming');
+  const Nowplaying = await getMovies('now_playing');
   
   const defaultData = {
     rank: 1,
-    category: 'Nigeria Today',
+    category: 'Top Rate',
     posterPath: Top[0].poster_path,
   };
 
@@ -57,7 +52,7 @@ const Browse = async ({ searchParams }: BrowseProps) => {
         contents={Popular}
       />
       <ContentsSlider
-        title='Upcomming'
+        title='Upcoming'
         isRanking={false}
         contents={Upcoming}
       />
