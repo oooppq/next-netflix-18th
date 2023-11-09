@@ -27,7 +27,7 @@ const Browse = async ({ searchParams }: BrowseProps) => {
   };
 
   return (
-    <div className='bg-black w-full h-full relative'>
+    <div className='bg-black w-full min-h-full pb-12 relative'>
       <HomeNavBar />
       <HomeTop
         posterPath={searchParams.posterPath || defaultData.posterPath}
