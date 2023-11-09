@@ -9,16 +9,18 @@ interface ContentsSliderProps {
   title: string;
   contents: TContent[];
   isRanking: boolean;
+  isPreview?: boolean;
 }
 
 const ContentsSlider = ({
   title,
   isRanking,
   contents,
+  isPreview = false,
 }: ContentsSliderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMouseOnSlider, setIsMouseOnSlider] = useState<Boolean>(false);
-
+  
   const handleClickMoveButton = (direction: 'prev' | 'next') => {
     if (!containerRef.current) return;
     if (direction === 'prev') {
@@ -79,6 +81,7 @@ const ContentsSlider = ({
                   ? 'tail'
                   : 'mid'
               }
+              isPreview={isPreview}
             />
           ))}
         </div>
