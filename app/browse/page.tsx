@@ -19,11 +19,11 @@ const Browse = async ({ searchParams }: BrowseProps) => {
   const Popular = await setMovies('popular');
   const Upcoming = await setMovies('upcoming');
   const Nowplaying = await setMovies('now_playing');
-
+  
   const defaultData = {
     rank: 1,
     category: 'Nigeria Today',
-    posterPath: '/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
+    posterPath: Top[0].poster_path,
   };
 
   return (
