@@ -8,6 +8,9 @@ interface SearchResultListProps {
 const SearchResultList = ({ movies }: SearchResultListProps) => {
   return (
     <div>
+      <h2 className="text-white text-[27px] ml-2.5 mt-5 mb-4 font-bold">
+        Top Searches
+      </h2>
       {movies.map((movie) => (
         <SearchResultElement key={movie.id} movie={movie} />
       ))}
