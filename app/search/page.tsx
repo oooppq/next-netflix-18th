@@ -4,13 +4,18 @@ import SearchBar from '@/components/search/SearchBar';
 import SearchResultList from '@/components/search/SearchResultList';
 import { useDebounce } from '@/hooks/useDebounce';
 import { TContent } from '@/types';
-import { getMovies } from '@/utils/Api';
+import { getMovies, getSearchedMovies } from '@/utils/Api';
 import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 const SearchPage = () => {
   const [movies, setMovies] = useState<TContent[]>([]);
   const [keyword, setKeyword] = useState<string>('');
   const [init, setInit] = useState<boolean>(true);
+  const [ref, inview] = useInView();
+  const [pageNum, setPageNum] = useState<number>(1);
+  const [totalPageNum, setTotalPageNum] = useState<number>(1);
+
   useEffect(() => {
     if (!keyword) {
       (async () => {
@@ -18,23 +23,39 @@ const SearchPage = () => {
         // 첫 요청 이후에는 caching된 데이터를 가져올 것(?)
         const defaultMovies = await getMovies('popular');
         setMovies(defaultMovies);
+        setPageNum(1);
+        setTotalPageNum(1);
         setInit(false);
       })();
     }
   }, [keyword]);
 
+  useEffect(() => {
+    if (pageNum > 1) {
+      (async () => {
+        const data = await getSearchedMovies(keyword, pageNum);
+        setMovies([...movies, ...data.results]);
+      })();
+    }
+  }, [pageNum]);
+
+  useEffect(() => {
+    if (inview && pageNum < totalPageNum) {
+      console.log(pageNum, totalPageNum);
+      setPageNum(pageNum + 1);
+    }
+  }, [inview]);
+
   const handleOnChangeQuery = async (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const query = e.target.value.trim();
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${
-      process.env.NEXT_PUBLIC_API_KEY
-    }&language=en-US&page=${1}&include_adult=false&query=${query}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    if (query) setMovies(data.results);
-    else setInit(true);
+    const data = await getSearchedMovies(query);
+    setMovies(data.results);
+    setPageNum(data.page);
+    setTotalPageNum(data.total_pages);
     setKeyword(query);
+    if (!query) setInit(true);
   };
 
   return (
@@ -54,6 +75,7 @@ const SearchPage = () => {
         <div className="text-white text-center mt-20 px-3 break-words">{`There are no movies that matched "${keyword}".
         `}</div>
       )}
+      <div className="" ref={ref}></div>
     </div>
   );
 };
