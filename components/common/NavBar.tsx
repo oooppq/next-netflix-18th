@@ -17,7 +17,7 @@ const NavBar = () => {
   if (pathname === '/') return null;
 
   return (
-    <nav className="w-full px-7 fixed bottom-0 h-12 flex bg-[#121212] justify-between items-end pb-[0.3rem]">
+    <nav className="w-full px-7 fixed bottom-0 h-12 flex bg-[#121212] justify-between items-end pb-[0.3rem] z-20">
       <NavBarButton
         name="Home"
         isCurrentPage={pathname === '/browse'}

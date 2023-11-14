@@ -42,7 +42,6 @@ const SearchPage = () => {
 
   useEffect(() => {
     if (inview && pageNum < totalPageNum) {
-      console.log(pageNum, totalPageNum);
       setPageNum(pageNum + 1);
     }
   }, [inview]);
