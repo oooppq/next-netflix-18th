@@ -1,6 +1,15 @@
-import { SearchBarIcon, XIcon } from '@/public/images';
+'use client';
 
-const SearchBar = () => {
+import { SearchBarIcon, XIcon } from '@/public/images';
+import { useRef, useState } from 'react';
+
+interface SearchBarProps {
+  handleOnChangeQuery: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const SearchBar = ({ handleOnChangeQuery }: SearchBarProps) => {
+  const [query, setQuery] = useState<string>('');
+
   return (
     <div className="flex items-center bg-[#424242] h-[52px] mt-[44px] pl-5 pr-[18px]">
       <SearchBarIcon className="mr-1" />
@@ -8,8 +17,14 @@ const SearchBar = () => {
         type="text"
         className="bg-transparent flex-1 px-3 text-[15px] text-[#C4C4C4] focus:outline-none"
         placeholder="Search for a show, movie, genre, e.t.c."
+        onChange={(e) => {
+          handleOnChangeQuery(e);
+          setQuery(e.target.value);
+        }}
+        value={query}
       />
-      <XIcon />
+
+      {query.trim() ? <XIcon /> : null}
     </div>
   );
 };
