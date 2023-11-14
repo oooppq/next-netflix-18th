@@ -1,5 +1,6 @@
 import SearchResultElement from '@/components/search/SearchResultElement';
 import { TContent } from '@/types';
+import { memo } from 'react';
 
 interface SearchResultListProps {
   movies: TContent[];
@@ -15,4 +16,4 @@ const SearchResultList = ({ movies }: SearchResultListProps) => {
   );
 };
 
-export default SearchResultList;
+export default memo(SearchResultList);
