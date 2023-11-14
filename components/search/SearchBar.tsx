@@ -8,6 +8,7 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ handleOnChangeQuery }: SearchBarProps) => {
+  // 다른 용도는 없고, 단지 seacrh bar 안에 X 아이콘 렌더링 여부를 query에 따라 즉각적으로 판단해주려구..
   const [query, setQuery] = useState<string>('');
 
   return (
@@ -23,7 +24,6 @@ const SearchBar = ({ handleOnChangeQuery }: SearchBarProps) => {
         }}
         value={query}
       />
-
       {query.trim() ? <XIcon /> : null}
     </div>
   );
