@@ -7,7 +7,7 @@ interface SearchResultListProps {
 
 const SearchResultList = ({ movies }: SearchResultListProps) => {
   return (
-    <div>
+    <div className="pb-12">
       {movies.map((movie) => (
         <SearchResultElement key={movie.id} movie={movie} />
       ))}

@@ -25,7 +25,9 @@ const SearchResultElement = ({ movie }: SearchResultElementProps) => {
         fill
         className="!w-2/5 object-cover"
       />
-      <h3 className=" pl-[45%] text-white flex-1">{movie.title}</h3>
+      <h3 className=" pl-[45%] pr-4 text-white flex-1 hide-overflow-2">
+        {movie.title}
+      </h3>
       <CirclePlayIcon />
     </div>
   );
