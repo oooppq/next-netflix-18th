@@ -28,7 +28,7 @@ const NavBar = () => {
       <NavBarButton
         name="Search"
         isCurrentPage={pathname === '/search'}
-        // handleClickButton={() => router.push('/search')}
+        handleClickButton={() => router.push('/search')}
       >
         <SearchIcon />
       </NavBarButton>
