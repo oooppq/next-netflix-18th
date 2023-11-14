@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 const SearchPage = () => {
   const [movies, setMovies] = useState<TContent[]>([]);
   const [keyword, setKeyword] = useState<string>('');
-
+  const [init, setInit] = useState<boolean>(true);
   useEffect(() => {
     if (!keyword) {
       (async () => {
@@ -18,6 +18,7 @@ const SearchPage = () => {
         // 첫 요청 이후에는 caching된 데이터를 가져올 것(?)
         const defaultMovies = await getMovies('popular');
         setMovies(defaultMovies);
+        setInit(false);
       })();
     }
   }, [keyword]);
@@ -32,16 +33,22 @@ const SearchPage = () => {
     const res = await fetch(url);
     const data = await res.json();
     if (query) setMovies(data.results);
+    else setInit(true);
     setKeyword(query);
   };
 
   return (
     <div>
-      <SearchBar handleOnChangeQuery={useDebounce(handleOnChangeQuery, 500)} />
+      <SearchBar
+        keyword={keyword}
+        setKeyword={setKeyword}
+        setInit={setInit}
+        handleOnChangeQuery={useDebounce(handleOnChangeQuery, 500)}
+      />
       <h2 className="text-white text-[27px] ml-2.5 mt-5 mb-4 font-bold">
         {keyword.length === 0 ? 'Polular' : 'Top Searches'}
       </h2>
-      {movies.length ? (
+      {movies.length || init ? (
         <SearchResultList movies={movies} />
       ) : (
         <div className="text-white text-center mt-20 px-3 break-words">{`There are no movies that matched "${keyword}".

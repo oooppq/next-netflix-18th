@@ -1,16 +1,22 @@
 'use client';
 
 import { SearchBarIcon, XIcon } from '@/public/images';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 
 interface SearchBarProps {
+  keyword: string;
+  setKeyword: React.Dispatch<React.SetStateAction<string>>;
+  setInit: React.Dispatch<React.SetStateAction<boolean>>;
   handleOnChangeQuery: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const SearchBar = ({ handleOnChangeQuery }: SearchBarProps) => {
-  // 다른 용도는 없고, 단지 seacrh bar 안에 X 아이콘 렌더링 여부를 query에 따라 즉각적으로 판단해주려구..
-  const [query, setQuery] = useState<string>('');
-
+const SearchBar = ({
+  keyword,
+  setKeyword,
+  setInit,
+  handleOnChangeQuery,
+}: SearchBarProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
   return (
     <div className="flex items-center bg-[#424242] h-[52px] mt-[44px] pl-5 pr-[18px]">
       <SearchBarIcon className="mr-1" />
@@ -20,11 +26,20 @@ const SearchBar = ({ handleOnChangeQuery }: SearchBarProps) => {
         placeholder="Search for a show, movie, genre, e.t.c."
         onChange={(e) => {
           handleOnChangeQuery(e);
-          setQuery(e.target.value);
         }}
-        value={query}
+        ref={inputRef}
       />
-      {query.trim() ? <XIcon /> : null}
+      {keyword ? (
+        <XIcon
+          onClick={() => {
+            setKeyword('');
+            setInit(true);
+            if (inputRef?.current) {
+              inputRef.current.value = '';
+            }
+          }}
+        />
+      ) : null}
     </div>
   );
 };
