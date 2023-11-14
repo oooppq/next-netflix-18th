@@ -27,6 +27,15 @@ const config: Config = {
           '-ms-overflow-style': 'none',
           'scrollbar-width': 'none',
         },
+        '.hide-overflow-2': {
+          'text-overflow': 'ellipsis',
+          overflow: 'hidden',
+          'white-space': 'pre-wrap',
+          'word-break': 'break-all',
+          display: '-webkit-box',
+          '-webkit-line-clamp': '2',
+          '-webkit-box-orient': 'vertical',
+        },
       });
     }),
   ],
