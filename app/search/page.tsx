@@ -5,22 +5,22 @@ import { TContent } from '@/types';
 const CONTENTS: TContent[] = [
   {
     id: 1,
-    poster_path: '/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
+    poster_path: '/hZkgoQYus5vegHoetLkCJzb17zJ.jpg',
     title: '안녕하세요!?',
   },
   {
     id: 2,
-    poster_path: '/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
+    poster_path: '/hZkgoQYus5vegHoetLkCJzb17zJ.jpg',
     title: '안녕하세요!?',
   },
   {
     id: 3,
-    poster_path: '/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
+    poster_path: '/hZkgoQYus5vegHoetLkCJzb17zJ.jpg',
     title: '안녕하세요!?',
   },
   {
     id: 4,
-    poster_path: '/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
+    poster_path: '/hZkgoQYus5vegHoetLkCJzb17zJ.jpg',
     title: '안녕하세요!?',
   },
 ];
