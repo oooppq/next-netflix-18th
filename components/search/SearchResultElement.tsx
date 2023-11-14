@@ -18,10 +18,8 @@ const SearchResultElement = ({ movie }: SearchResultElementProps) => {
     : movie.poster_path;
 
   const baseUrl = 'https://image.tmdb.org/t/p/original';
-
-  const backDropUrl = backDropPath
-    ? baseUrl + backDropPath
-    : 'https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg';
+  const defaultImageUrl =
+    'https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg';
 
   return (
     <div className="relative">
@@ -32,15 +30,31 @@ const SearchResultElement = ({ movie }: SearchResultElementProps) => {
           isLoading ? 'flex' : 'flex'
         }`}
       >
-        <Image
-          src={backDropUrl}
-          alt="poster"
-          fill
-          className="!w-2/5 object-cover"
-          onLoad={() => {
-            setIsLoading(false);
-          }}
-        />
+        {backDropPath ? (
+          <Image
+            src={baseUrl + backDropPath}
+            alt="poster"
+            fill
+            className="!w-2/5 object-cover"
+            sizes="100%"
+            onLoad={() => {
+              setIsLoading(false);
+            }}
+          />
+        ) : (
+          <div className="absolute w-2/5 h-full flex items-center justify-center bg-[#545454]">
+            <Image
+              src={defaultImageUrl}
+              alt="no poster"
+              width={40}
+              height={40}
+              onLoad={() => {
+                setIsLoading(false);
+              }}
+            />
+          </div>
+        )}
+
         <h3 className=" pl-[45%] pr-4 text-white flex-1 hide-overflow-2">
           {movie.title}
         </h3>
