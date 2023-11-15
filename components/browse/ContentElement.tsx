@@ -20,7 +20,7 @@ const ContentElement = ({
   const width = 103;
   const height = 161;
   const url = 'https://image.tmdb.org/t/p/w154';
-  let clickUrl = `?id=${content.id}&category=${category}&posterPath=${content.poster_path}`;
+  let clickUrl = `/movies/${content.id}/${content.poster_path}`;
   if (rank) clickUrl += `&rank=${rank}`;
 
   const imageClasses = `object-cover ${isPreview ? 'rounded-full' : ''}`;
