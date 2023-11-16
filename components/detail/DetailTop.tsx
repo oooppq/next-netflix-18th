@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { PlayIcon } from '@/public/images';
 
 interface DetailTopProps {
-  posterPath: string;
+  posterPath: string | null;
 }
 
 const DetailTop = ({ posterPath }: DetailTopProps) => {
