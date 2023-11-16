@@ -11,8 +11,8 @@ const Page = async ({
   const movie = await getMovieDetails(params.id);
 
   return (
-    <div className='min-h-screen bg-black'>
-      <DetailTop title={movie.title} posterPath={movie.poster_path} />
+    <div className="min-h-screen bg-black">
+      <DetailTop posterPath={movie.poster_path} />
       <DetailOverview title={movie.title} overview={movie.overview} />
     </div>
   );
